@@ -27,7 +27,7 @@ if Choix == "1" :
 
 ## Décryptage ##
 if Choix == "2" :
-    decriptefil = input("Entrez la clef de décryptage (entrez pour ignorer) : ")
+    decriptefil = input("Entrez la clef de décryptage : ")
 
     file = glob.glob('*.txt')
     for files in file:
