@@ -4,7 +4,7 @@ import glob
 Choix = input(" Choisisez votre mode (1) pour Crypter (2) pour Décrypter : ")
 if Choix == "1" :
 
-    ## Generation de la clef ##
+    ## Géneration de la clef ##
     user_key = input("Générer une nouvelle clé (o/n) ")
 
     if user_key.lower() == 'o':
@@ -20,9 +20,9 @@ if Choix == "1" :
         
             
         
-    ## Encryptage ##
+    ## Encryption ##
     try :
-        files = glob.glob("**/*.txt", recursive=True)
+        files = glob.glob("**/*.txt", recursive=True, include_hidden=True)
         for file in files:
             with open(file, 'rb') as f:
                 data = f.read()
@@ -36,12 +36,14 @@ if Choix == "1" :
 ## Décryptage ##
 if Choix == "2" :
     decriptefil = input("Entrez la clef de décryptage : ")
-
-    file = glob.glob('*/**.txt', recursive=True)
-    for files in file:
-        with open(files, 'rb') as f:
-            data = f.read()
-        fernet = Fernet(decriptefil)
-        decrypted = fernet.decrypt(data)
-        with open(files, 'wb') as f:
-            f.write(decrypted)
+    try :
+        files = glob.glob('*/**.txt', recursive=True, include_hidden=True)
+        for file in files:
+            with open(file, 'rb') as f:
+                data = f.read()
+            fernet = Fernet(decriptefil)
+            decrypted = fernet.decrypt(data)
+            with open(file, 'wb') as f:
+                f.write(decrypted)
+    except :
+        print("La clef entrer n'est pas valide")
